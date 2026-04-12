@@ -83,7 +83,18 @@ export default {
           fields: [
             { name: 'metodo', type: 'string', title: 'Método' },
             { name: 'monto', type: 'number', title: 'Monto' }
-          ]
+          ],
+          preview: {
+        select: {
+          metodo: 'metodo',
+          monto: 'monto'
+        },
+        prepare({ metodo, monto }) {
+          return {
+            title: `${metodo?.toUpperCase()}: $${Number(monto).toLocaleString('es-CO')}`
+          }
+        }
+      }
         }
       ]
     },
