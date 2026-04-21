@@ -49,6 +49,18 @@ export default {
             },
             initialValue: 'mesa'
         },
+    // Dentro de los fields de tu esquema de orden/venta
+{
+  name: 'datosEntrega',
+  title: 'Datos de Entrega (Domicilio)',
+  type: 'object',
+  fields: [
+    { name: 'nombreCliente', title: 'Nombre del Cliente', type: 'string' },
+    { name: 'direccion', title: 'Dirección de Entrega', type: 'string' },
+    { name: 'telefono', title: 'Teléfono de Contacto', type: 'string' },
+  ],
+  options: { collapsed: true } // Para que no estorbe si no hay datos
+},
     {
       name: 'totalPagado',
       title: 'Total Pagado (Venta Neta)',

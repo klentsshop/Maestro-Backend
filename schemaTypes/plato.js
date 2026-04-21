@@ -45,21 +45,59 @@ export default {
       type: 'boolean',
       initialValue: false
     },
+    // 🚀 NUEVA LÓGICA: RECETA MULTI-INSUMO
+    {
+      name: 'recetaInsumos',
+      title: 'Insumos a Descontar (Receta)',
+      type: 'array',
+      hidden: ({ document }) => !document?.controlaInventario,
+      description: 'Agregue todos los insumos que este plato debe descontar al venderse',
+      of: [
+        {
+          type: 'object',
+          name: 'itemReceta',
+          fields: [
+            {
+              name: 'insumo',
+              title: 'Insumo',
+              type: 'reference',
+              to: [{ type: 'inventario' }]
+            },
+            {
+              name: 'cantidad',
+              title: 'Cantidad a descontar',
+              type: 'number',
+              initialValue: 1
+            }
+          ],
+          preview: {
+            select: {
+              title: 'insumo.nombre',
+              cantidad: 'cantidad'
+            },
+            prepare({ title, cantidad }) {
+              return {
+                title: `${title || 'Sin seleccionar'}`,
+                subtitle: `Descuenta: ${cantidad} unidades`
+              }
+            }
+          }
+        }
+      ]
+    },
     {
       name: 'insumoVinculado',
       title: 'Insumo del Inventario',
       type: 'reference',
       to: [{ type: 'inventario' }],
-      hidden: ({ document }) => !document?.controlaInventario,
-      description: 'Seleccione qué ítem del almacén descuenta este plato'
+      hidden: true
     },
     {
       name: 'cantidadADescontar',
       title: 'Cantidad a descontar',
       type: 'number',
       initialValue: 1,
-      hidden: ({ document }) => !document?.controlaInventario,
-      description: '¿Cuántas unidades o kg descuenta cada venta?'
+      hidden: true
     },
     {
     name: 'totalVentas',
